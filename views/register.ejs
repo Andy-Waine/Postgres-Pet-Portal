@@ -9,6 +9,12 @@
 <body>
     <h1>Register</h1>
 
+    <ul>
+        <% if(typeof errors != 'undefined') {  %>
+            <li><%= errors.message %></li>
+        <% } %>
+    </ul>
+
     <form action="/users/register" method="POST">
     <div>
         <input type="text" id="name" name="name" placeholder="Name" required />
