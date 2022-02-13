@@ -95,7 +95,7 @@ app.post('/users/register', async (req, res) => {
   
           if (results.rows.length > 0) {
             return res.render("register", {
-              message: "Email already registered"
+              message: "Account Already Exists - Please Login or Use a New E-mail"
             });
           } else {
             pool.query(
@@ -108,7 +108,7 @@ app.post('/users/register', async (req, res) => {
                   throw err;
                 }
                 console.log(results.rows);
-                req.flash("success_msg", "You are now registered. Please log in");
+                req.flash("success_msg", "Registered! Please Login");
                 res.redirect("/users/login");
               }
             );
@@ -143,7 +143,7 @@ app.post(
   }
   
   app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log(`This Server is Running on Port ${PORT}`);
   });
   
 
