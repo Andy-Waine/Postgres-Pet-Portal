@@ -13,141 +13,137 @@ const initializePassport = require("./passportConfig");
 
 initializePassport(passport);
 
-app.use(express.urlencoded({ extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
 //encrypts stored database info
 app.use(
-    session({
-      secret: process.env.SESSION_SECRET,
-      //re-save variables if nothing has changed? false.
-      resave: false,
-      //save variables if fields are blank? false.
-      saveUninitialized: false
-    })
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-  app.use(flash());
-
+  session({
+    secret: "secret",
+    //re-save variables if nothing has changed? false.
+    resave: false,
+    // Save variables if fields are blank? false.
+    saveUninitialized: false
+  })
+);
+// Funtion inside passport which initializes passport
+app.use(passport.initialize());
+// Store our variables to be persisted across the whole session. Works with app.use(Session) above
+app.use(passport.session());
+app.use(flash());
 
 app.get("/", (req, res) => {
-    res.render('index');
+  res.render("index");
 });
 
-app.get('/users/register', checkAuthenticated, (req, res) => {
-    res.render("register.ejs");
+app.get("/users/register", checkAuthenticated, (req, res) => {
+  res.render("register.ejs");
 });
 
-app.get('/users/login', checkAuthenticated, (req, res) => {
-    console.log(req.session.flash.error);
-    res.render("login.ejs");
+app.get("/users/login", checkAuthenticated, (req, res) => {
+  // flash sets a messages variable. passport sets the error message
+  console.log(req.session.flash.error);
+  res.render("login.ejs");
 });
 
-app.get('/users/dashboard', checkNotAuthenticated, (req, res) => {
-    console.log(req.isAuthenticated());
-    res.render("dashboard", { user: req.user.name });
+app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
+  console.log(req.isAuthenticated());
+  res.render("dashboard", { user: req.user.name });
 });
 
 app.get("/users/logout", (req, res) => {
-    //passport functions
-    req.logout();
-    res.render("index", { message: "Logged Out." });
-  });
-
-app.post('/users/register', async (req, res) => {
-    let { name, email, password, password2 } = req.body;
-
-    let errors = [];
-
-    console.log({
-        name,
-        email,
-        password,
-        password2
-    });
-
-    if  (!name || !email || !password || !password2) {
-        errors.push({ message: "All Fields Required" });
-    }
-
-    if(password.length < 6) {
-        errors.push({ message: "Password Minimum: 6 Characters" });
-    }
-
-    if(password != password2) {
-        errors.push({ message: "Passwords Do Not Match" });
-    }
-
-    if(errors.length > 0) {
-        //re-renders page if there are errors
-        res.render("register", { errors, name, email, password, password2 });
-    } else {
-      hashedPassword = await bcrypt.hash(password, 10);
-      console.log(hashedPassword);
-      // Validation passed
-      pool.query(
-        `SELECT * FROM users
-          WHERE email = $1`,
-        [email],
-        (err, results) => {
-          if (err) {
-            console.log(err);
-          }
-          console.log(results.rows);
-  
-          if (results.rows.length > 0) {
-            return res.render("register", {
-              message: "Account Already Exists - Please Login or Use a New E-mail"
-            });
-          } else {
-            pool.query(
-              `INSERT INTO users (name, email, password)
-                  VALUES ($1, $2, $3)
-                  RETURNING id, password`,
-              [name, email, hashedPassword],
-              (err, results) => {
-                if (err) {
-                  throw err;
-                }
-                console.log(results.rows);
-                req.flash("success_msg", "Registered! Please Login");
-                res.redirect("/users/login");
-              }
-            );
-          }
-        }
-      );
-    }
+  req.logout();
+  res.render("index", { message: "Logged Out" });
 });
 
+app.post("/users/register", async (req, res) => {
+  let { name, email, password, password2 } = req.body;
+
+  let errors = [];
+
+  console.log({
+    name,
+    email,
+    password,
+    password2
+  });
+
+  if (!name || !email || !password || !password2) {
+    errors.push({ message: "All Fields Required" });
+  }
+
+  if (password.length < 6) {
+    errors.push({ message: "Password Minimum Length: 6 Characters" });
+  }
+
+  if (password !== password2) {
+    errors.push({ message: "Passwords Do Not Match" });
+  }
+
+  if (errors.length > 0) {
+    res.render("register", { errors, name, email, password, password2 });
+  } else {
+    hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword);
+    // Validation passed
+    pool.query(
+      `SELECT * FROM users
+        WHERE email = $1`,
+      [email],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(results.rows);
+
+        if (results.rows.length > 0) {
+          return res.render("register", {
+            message: "Account Already Exists - Please Login or Use a New E-mail"
+          });
+        } else {
+          pool.query(
+            `INSERT INTO users (name, email, password)
+                VALUES ($1, $2, $3)
+                RETURNING id, password`,
+            [name, email, hashedPassword],
+            (err, results) => {
+              if (err) {
+                throw err;
+              }
+              console.log(results.rows);
+              req.flash("success_msg", "Registered - Please Login");
+              res.redirect("/users/login");
+            }
+          );
+        }
+      }
+    );
+  }
+});
 
 app.post(
-    "/users/login",
-    passport.authenticate("local", {
-      successRedirect: "/users/dashboard",
-      failureRedirect: "/users/login",
-      failureFlash: true
-    })
-  );
-  
-  function checkAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return res.redirect("/users/dashboard");
-    }
-    next();
-  }
-  
-  function checkNotAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-    res.redirect("/users/login");
-  }
-  
-  app.listen(PORT, () => {
-    console.log(`This Server is Running on Port ${PORT}`);
-  });
-  
+  "/users/login",
+  passport.authenticate("local", {
+    successRedirect: "/users/dashboard",
+    failureRedirect: "/users/login",
+    failureFlash: true
+  })
+);
 
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/users/dashboard");
+  }
+  next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/users/login");
+}
+
+app.listen(PORT, () => {
+  console.log(`This Server is Running on Port ${PORT}`);
+});
