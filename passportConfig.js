@@ -26,7 +26,7 @@ function initialize(passport) {
             if (isMatch) {
               return done(null, user);
             } else {
-              return done(null, false, { message: "Incorrect Passwprd" });
+              return done(null, false, { message: "Incorrect Password" });
             }
           });
         } else {

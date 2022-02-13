@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
-require("dontenv").config();
+require("dotenv").config();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -16,10 +16,13 @@ initializePassport(passport);
 app.use(express.urlencoded({ extended: false}));
 app.set("view engine", "ejs");
 
+//encrypts stored database info
 app.use(
     session({
       secret: process.env.SESSION_SECRET,
+      //re-save variables if nothing has changed? false.
       resave: false,
+      //save variables if fields are blank? false.
       saveUninitialized: false
     })
   );
@@ -48,8 +51,9 @@ app.get('/users/dashboard', checkNotAuthenticated, (req, res) => {
 });
 
 app.get("/users/logout", (req, res) => {
+    //passport functions
     req.logout();
-    res.render("index", { message: "You have logged out successfully" });
+    res.render("index", { message: "Logged Out." });
   });
 
 app.post('/users/register', async (req, res) => {
