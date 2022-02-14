@@ -2,6 +2,7 @@ const LocalStrategy = require("passport-local").Strategy;
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 
+//passport for authentication, bcrypt for password hashing
 function initialize(passport) {
   console.log("Initialized");
 

@@ -41,7 +41,6 @@ app.get("/users/register", checkAuthenticated, (req, res) => {
 });
 
 app.get("/users/login", checkAuthenticated, (req, res) => {
-  // flash sets a messages variable. passport sets the error message
   console.log(req.session.flash.error);
   res.render("login.ejs");
 });
@@ -57,7 +56,7 @@ app.get("/users/logout", (req, res) => {
 });
 
 app.post("/users/register", async (req, res) => {
-  let { name, email, password, password2 } = req.body;
+  let { name, email, password, password2, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet } = req.body;
 
   let errors = [];
 
@@ -65,10 +64,16 @@ app.post("/users/register", async (req, res) => {
     name,
     email,
     password,
-    password2
+    password2,
+    serialno,
+    nameofpet,
+    sexofpet,
+    speciesofpet,
+    breedofpet,
+    colorofpet
   });
 
-  if (!name || !email || !password || !password2) {
+  if (!name || !email || !password || !password2 || !serialno || !nameofpet || !sexofpet || !speciesofpet || !breedofpet || !colorofpet) {
     errors.push({ message: "All Fields Required" });
   }
 
@@ -81,7 +86,7 @@ app.post("/users/register", async (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render("register", { errors, name, email, password, password2 });
+    res.render("register", { errors, name, email, password, password2, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet });
   } else {
     hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
@@ -102,10 +107,10 @@ app.post("/users/register", async (req, res) => {
           });
         } else {
           pool.query(
-            `INSERT INTO users (name, email, password)
-                VALUES ($1, $2, $3)
+            `INSERT INTO users (name, email, password, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
                 RETURNING id, password`,
-            [name, email, hashedPassword],
+            [name, email, hashedPassword, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet],
             (err, results) => {
               if (err) {
                 throw err;
