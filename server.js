@@ -26,9 +26,8 @@ app.use(
     saveUninitialized: false
   })
 );
-// Funtion inside passport which initializes passport
+
 app.use(passport.initialize());
-// Store our variables to be persisted across the whole session. Works with app.use(Session) above
 app.use(passport.session());
 app.use(flash());
 
@@ -45,9 +44,18 @@ app.get("/users/login", checkAuthenticated, (req, res) => {
   res.render("login.ejs");
 });
 
+//bingo bango
 app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
   console.log(req.isAuthenticated());
-  res.render("dashboard", { user: req.user.name });
+  res.render("dashboard", { 
+    user: req.user.name, 
+    serialno: req.user.serialno,
+    nameofpet: req.user.nameofpet,
+    sexofpet: req.user.sexofpet,
+    speciesofpet: req.user.speciesofpet,
+    breedofpet: req.user.breedofpet,
+    colorofpet: req.user.colorofpet
+  });
 });
 
 app.get("/users/logout", (req, res) => {
