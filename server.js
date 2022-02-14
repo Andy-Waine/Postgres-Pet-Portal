@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
+const path = require('path');
 require("dotenv").config();
 const app = express();
 
@@ -13,10 +14,14 @@ const initializePassport = require("./passportConfig");
 
 initializePassport(passport);
 
+//Image Rendering
+app.use('/assets', express.static(path.join(__dirname, 'assets')))
+
+//Express
 app.use(express.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 
-//encrypts stored database info
+//Encrypts stored database info
 app.use(
   session({
     secret: "secret",
@@ -31,6 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+//req, res gets
 app.get("/", (req, res) => {
   res.render("index");
 });
