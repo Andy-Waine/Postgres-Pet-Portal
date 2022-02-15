@@ -169,8 +169,6 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 
-server.listen(process.env.PORT);
-
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`This Server is Running on Port ${PORT}`);
 });
