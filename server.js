@@ -1,10 +1,6 @@
 const express = require("express");
 const http = require("http");
-const options = {
-  key: fs.readFileSync("./server.key"),
-  cert: fs.readFileSync("./server.crt")
-};
-const server = http.createServer(options, app);
+const server = http.createServer(app);
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
