@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/public/assets/style.css" />
   </head>
+  
   <body>
     <div class="container">
-      <div class="row content">
-        <div class="col-md-6 mb-3">
-          <!--Left Half of Container: Logo -->
-          <img src="/assets/logo.svg" class="img-fluid" alt="image">
+      <div class="row content notrim fillcontainer roundedge">
+        <!--Left Half of Container: Logo -->
+        <div class="col-md-6 notrim roundedgeleft svgcontainer">
+          <img src="/images/logo.svg" class="img-fluid filter-through svglogo" alt="image">
         </div>
-        <div class="col-md-6">
-          <h3 class="signin-text mb-3">
-            Login
-          </h3>
-          <!--Right Half of Container: Login Form-->
+        <!--Right Half of Container: Login Form-->
+        <div class="col-md-6 notrim logincontainer">
+          <h1 class="loginbox" style="text-align: center;">
+            LOGIN
+          </h1>
           <form action="/users/login" method="POST">
-            <div class="form-group">
-              <label for="email">E-mail</label>
+            <div class="form-group inputstyle">
               <input
                 type="email"
                 id="email"
@@ -32,8 +32,7 @@
                 required
               />
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
+            <div class="form-group inputstyle">
               <input
                 type="password"
                 id="password"
@@ -43,11 +42,10 @@
                 required
               />
             </div>
-            <div>
+            <div class="btncontainer fillcontainer">
               <button class="btn btn-class">Login</button>
+              <a class="btn btn-class" href="/users/register">Register</a>
             </div>
-    
-            <a href="/users/register">Register</a>
           </form>
         </div>
       </div>

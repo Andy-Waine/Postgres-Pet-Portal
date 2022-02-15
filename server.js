@@ -14,8 +14,11 @@ const initializePassport = require("./passportConfig");
 
 initializePassport(passport);
 
+//CSS Rendering
+app.use('/public', express.static('public'));
+
 //Image Rendering
-app.use('/assets', express.static(path.join(__dirname, 'assets')))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 //Express
 app.use(express.urlencoded({ extended: false }));
