@@ -1,6 +1,5 @@
 const express = require("express");
 const http = require("http");
-const server = http.createServer(app);
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -9,6 +8,7 @@ const session = require("express-session");
 const path = require('path');
 require("dotenv").config();
 const app = express();
+const server = http.createServer(app);
 
 const PORT = process.env.PORT || 8000;
 
