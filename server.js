@@ -1,4 +1,10 @@
 const express = require("express");
+const http = require("http");
+const options = {
+  key: fs.readFileSync("./server.key"),
+  cert: fs.readFileSync("./server.crt")
+};
+const server = http.createServer(options, app);
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -165,6 +171,9 @@ function checkNotAuthenticated(req, res, next) {
   }
   res.redirect("/users/login");
 }
+
+
+server.listen(process.env.PORT);
 
 app.listen(PORT, () => {
   console.log(`This Server is Running on Port ${PORT}`);
