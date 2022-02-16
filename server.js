@@ -1,5 +1,4 @@
 const express = require("express");
-const http = require("http");
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
@@ -8,9 +7,8 @@ const session = require("express-session");
 const path = require('path');
 require("dotenv").config();
 const app = express();
-const server = http.createServer(app);
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 
 const initializePassport = require("./passportConfig");
 
@@ -168,7 +166,6 @@ function checkNotAuthenticated(req, res, next) {
   res.redirect("/users/login");
 }
 
-
-server.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`This Server is Running on Port ${PORT}`);
 });
