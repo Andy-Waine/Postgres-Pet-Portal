@@ -46,17 +46,17 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/users/register", checkAuthenticated, (req, res) => {
+app.get("/views/register.ejs", checkAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
 
-app.get("/users/login", checkAuthenticated, (req, res) => {
+app.get("/views/login", checkAuthenticated, (req, res) => {
   console.log(req.session.flash.error);
   res.render("login.ejs");
 });
 
 //bingo bango
-app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
+app.get("/views/dashboard", checkNotAuthenticated, (req, res) => {
   console.log(req.isAuthenticated());
   res.render("dashboard", { 
     user: req.user.name, 
@@ -69,12 +69,12 @@ app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
   });
 });
 
-app.get("/users/logout", (req, res) => {
+app.get("/views/logout", (req, res) => {
   req.logout();
   res.render("index", { message: "Logged Out" });
 });
 
-app.post("/users/register", async (req, res) => {
+app.post("/views/register", async (req, res) => {
   let { name, email, password, password2, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet } = req.body;
 
   let errors = [];
@@ -146,17 +146,17 @@ app.post("/users/register", async (req, res) => {
 });
 
 app.post(
-  "/users/login",
+  "/views/login",
   passport.authenticate("local", {
-    successRedirect: "/users/dashboard",
-    failureRedirect: "/users/login",
+    successRedirect: "/views/dashboard",
+    failureRedirect: "/views/login",
     failureFlash: true
   })
 );
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/users/dashboard");
+    return res.redirect("/views/dashboard");
   }
   next();
 }
@@ -165,7 +165,7 @@ function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/users/login");
+  res.redirect("/views/login");
 }
 
 
