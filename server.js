@@ -1,4 +1,5 @@
 const express = require("express");
+const router = require('./routes');
 const http = require("http");
 const { pool } = require("./dbConfig");
 const bcrypt = require("bcrypt");
@@ -15,6 +16,9 @@ const PORT = process.env.PORT || 8000;
 const initializePassport = require("./passportConfig");
 
 initializePassport(passport);
+
+app.use(express.json());
+app.use(router);
 
 //CSS Rendering
 app.use('/public', express.static('public'));
