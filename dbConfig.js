@@ -13,10 +13,8 @@ const pool = new Pool({
     database: "nodelogin",
     password: "password",
     port: "5432",
-    connectionString: isProduction ? process.env.DATABASE_URL :connectionString,
-    ssl: {
-        rejectUnauthorized: false
-    }
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:mniAMW13!@localhost:5432/nodelogin',
+    ssl: process.env.DATABASE_URL ? true : false
 });
 
 
