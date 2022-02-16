@@ -14,7 +14,7 @@ const pool = new Pool({
     password: "password",
     port: "5432",
     connectionString: process.env.DATABASE_URL || 'postgresql://postgres:mniAMW13!@localhost:5432/nodelogin',
-    ssl: process.env.DATABASE_URL ? true : false
+    ssl: { rejectUnauthorized: false }
 });
 
 
