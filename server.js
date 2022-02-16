@@ -46,17 +46,17 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/views/register.ejs", checkAuthenticated, (req, res) => {
+app.get("/users/register", checkAuthenticated, (req, res) => {
   res.render("register.ejs");
 });
 
-app.get("/views/login", checkAuthenticated, (req, res) => {
+app.get("/users/login", checkAuthenticated, (req, res) => {
   console.log(req.session.flash.error);
   res.render("login.ejs");
 });
 
 //bingo bango
-app.get("/views/dashboard", checkNotAuthenticated, (req, res) => {
+app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
   console.log(req.isAuthenticated());
   res.render("dashboard", { 
     user: req.user.name, 
@@ -69,12 +69,12 @@ app.get("/views/dashboard", checkNotAuthenticated, (req, res) => {
   });
 });
 
-app.get("/views/logout", (req, res) => {
+app.get("/users/logout", (req, res) => {
   req.logout();
   res.render("index", { message: "Logged Out" });
 });
 
-app.post("/views/register", async (req, res) => {
+app.post("/users/register", async (req, res) => {
   let { name, email, password, password2, serialno, nameofpet, sexofpet, speciesofpet, breedofpet, colorofpet } = req.body;
 
   let errors = [];
@@ -136,7 +136,7 @@ app.post("/views/register", async (req, res) => {
               }
               console.log(results.rows);
               req.flash("success_msg", "Registered - Please Login");
-              res.redirect("/views/login");
+              res.redirect("/users/login");
             }
           );
         }
@@ -146,17 +146,17 @@ app.post("/views/register", async (req, res) => {
 });
 
 app.post(
-  "/views/login",
+  "/users/login",
   passport.authenticate("local", {
-    successRedirect: "/views/dashboard",
-    failureRedirect: "/views/login",
+    successRedirect: "/users/dashboard",
+    failureRedirect: "/users/login",
     failureFlash: true
   })
 );
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    return res.redirect("/views/dashboard");
+    return res.redirect("/users/dashboard");
   }
   next();
 }
@@ -165,7 +165,7 @@ function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect("/views/login");
+  res.redirect("/users/login");
 }
 
 
