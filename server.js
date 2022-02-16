@@ -136,7 +136,7 @@ app.post("/views/register", async (req, res) => {
               }
               console.log(results.rows);
               req.flash("success_msg", "Registered - Please Login");
-              res.redirect("/users/login");
+              res.redirect("/views/login");
             }
           );
         }
