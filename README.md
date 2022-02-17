@@ -11,7 +11,7 @@ Postgres-Pet-Portal has been deployed at the link below, but I am currently work
     <br />
 
 ## Description
-<div align="center">Login to register your Fuzzy Friend's Microchip with this Node & Express-based web app using PostgreSQL database for login verification & pet characteristics on the back end.</div>
+<div align="center">Login to register your Fuzzy Friend's Microchip with this Node & Express-based web app using a PostgreSQL database for login verification & pet characteristics on the back end.</div>
 </br>
 
 ![image](https://user-images.githubusercontent.com/88730354/153978882-e14afe36-133c-4d85-b713-210d1c32038e.png)
