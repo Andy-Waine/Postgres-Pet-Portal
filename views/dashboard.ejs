@@ -2,25 +2,62 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Dashboard</title>
+    <title>Pet Portal Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/public/assets/style.css" />
   </head>
+
   <body>
-    <h1>Dashboard</h1>
+    <div class="container">
+      <div class="row content notrim fillcontainer roundedge">
+        <!--Left Half of Container: Logo -->
+        <div class="col-md-3 notrim roundedgeleft svgcontainer">
+          <img src="/images/logo.svg" class="img-fluid filter-through svglogo" alt="image">
+        </div>
+        <!--Right Half of Container: Login Form-->
+        <div class="col-md-9 notrim registercontainer">
+          <!--Container Header - WELCOME USER -->
+          <div style="margin-bottom: 0 !important;" class="registerbox" style="text-align: center;">
+            <h1>Welcome <%= user %></h1>
+          </div>
+          <hr style="width: 85%;text-align: center;margin: 0%;border-top: 1px solid #5B371D;">
+          <!--Outputs-->
+          <form class="d-flex register-form-parent" style="box-sizing: border-box;" action="/users/register" method="POST">
+            <div class="col-md-6 flex-grow-1" style="height: max-content">
+                    <div class="form-group dash-output">
+                      Pet's Name: <%= nameofpet %>                      
+                    </div>
+                    <div class="form-group dash-output">
+                      Microchip ID: <%= serialno %>
+                    </div>
 
-    <a href="/users/logout">Logout</a>
-
-    <h4>Hello <%= user %></h4>
-    <br />
-    <h4>Microchip ID: <%= serialno %></h4>
-    <h4><%= nameofpet %></h4>
-    <h4><%= sexofpet %></h4>
-    <h4><%= speciesofpet %></h4>
-    <h4><%= breedofpet %></h4>
-    <h4><%= colorofpet %></h4>
-    <h4>Your pet is registered in our database</h4>
-
-
+                    <div class="form-group dash-output">
+                      Species: <%= speciesofpet %>
+                    </div>
+            </div>
+            <div class="col-md-6 flex-grow-1" style="height: max-content">
+                    <div class="form-group dash-output">
+                      Gender: <%= sexofpet %>
+                    </div>
+                    <div class="form-group dash-output">
+                      Breed: <%= breedofpet %>
+                    </div>
+                    <div class="form-group dash-output">
+                      Color: <%= colorofpet %>
+                    </div>
+            </div>
+             
+                    <!--Logout-->
+                    <div class="register-button-parent">
+                        <div class="return-to-login-container">
+                            <a style="color: #dd660d" href="/users/logout">Logout</a>
+                        </div>
+                    </div>        
+          </form>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

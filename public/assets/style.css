@@ -282,3 +282,9 @@ body {
     color:#dd660d;
     text-decoration: underline;
 }
+
+.dash-output {
+    font-size: x-large;
+    font-weight: 300;
+    text-align: center;
+}
