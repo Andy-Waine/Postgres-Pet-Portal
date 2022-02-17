@@ -63,11 +63,26 @@ body {
     flex-direction: column;
 }
 
+.registercontainer {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-top: 3%;
+    flex-direction: column;
+}
+
 .loginbox {
     font-style: bold;
     color:#5B371D;
     font-weight: 600 !important;
     margin-bottom: 20%;
+}
+
+.registerbox {
+    font-style: bold;
+    color:#5B371D;
+    font-weight: 600 !important;
+    margin-bottom: 3%;
 }
 
 @media screen and (max-width: 320px) {
@@ -171,6 +186,32 @@ body {
     background-clip: padding-box;
 }
 
+.register-form-parent {
+    padding-top: 12%;
+}
+
+.register-form-control {
+    font-size: 1rem !important;
+    height: 5% !important;
+}
+
+/* only repeats to resize placeholder text below */
+.password-confirm-form-control {
+    font-size: 1rem !important;
+    height: 5% !important;
+}
+
+.register-button-parent {
+    position: absolute;
+    overflow: auto;
+    bottom: 0;
+    padding-bottom: 3%;
+    padding-left: 40%;
+    padding-right: 50%;
+    text-align: center;
+    justify-content: center;
+}
+
 .form-control:focus{
     border-color: #faebd7;
     background-color: #faebd7;
@@ -184,9 +225,23 @@ body {
     padding-bottom: 2%;
 }
 
+.thininputstyle {
+    color: #5B371D;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #5B371D;
     font-size: 22px;
+    opacity: 1; /* Firefox */
+}
+
+.password-confirm-form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #5B371D;
+    font-size: 18px;
     opacity: 1; /* Firefox */
 }
 
@@ -219,4 +274,11 @@ body {
 .btn-class:hover {
     background-color: #5B371D;
     color:#faebd7;
+}
+
+.return-to-login-container {
+    padding-top: 8%;
+    padding-bottom: 40%;
+    color:#dd660d;
+    text-decoration: underline;
 }
