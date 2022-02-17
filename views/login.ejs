@@ -42,6 +42,23 @@
                 required
               />
             </div>
+            <div style="font-size: small; color: #dd660d;">
+              <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => { %>
+              <div><%= error.message %></div>
+              <% }) %> <% } %>
+              </div>
+      
+            <div style="font-size: small; color: #dd660d;">
+              <% if(messages.success_msg) { %>
+              <div><%= messages.success_msg %></div>
+              <% } %>
+              </div>
+      
+            <div style="font-size: small; color: #dd660d;">
+              <% if (messages.error) { %>
+              <div><%= messages.error %></div>
+              <% } %>
+            </div>
             <div class="btncontainer fillcontainer">
               <button class="btn btn-class">Login</button>
               <a class="btn btn-class" href="/users/register">Register</a>
@@ -51,23 +68,6 @@
       </div>
     </div>
 
-      <ul>
-        <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => { %>
-        <li><%= error.message %></li>
-        <% }) %> <% } %>
-      </ul>
-
-      <ul>
-        <% if(messages.success_msg) { %>
-        <li><%= messages.success_msg %></li>
-        <% } %>
-      </ul>
-
-      <ul>
-        <% if (messages.error) { %>
-        <li><%= messages.error %></li>
-        <% } %>
-      </ul>
 
       </form>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
