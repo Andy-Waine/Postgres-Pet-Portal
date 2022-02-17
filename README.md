@@ -2,10 +2,11 @@ Postgres-Pet-Portal
 =======
 Technology Used: PostgreSQL, Node, Express, Nodemon, EJS, bcrypt, passport
 Postgres-Pet-Portal has been deployed at the link below, but I am currently working on a database connection issue with Heroku. The application works locally, so I will upload a demo video very soon (Andy-Waine Feb 17 2022).
+    <br />      
 <div align="center"> 👉 Demonstration Video: https://vimeo.com/678833351 👈 </div>
     <br />
     <br />
-    <br />        
+  
 <div align="center">🚧 Deployment (Currently Under Construction): https://postgres-pet-portal.herokuapp.com/ 🚧</div>
     <br />
 
