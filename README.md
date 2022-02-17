@@ -1,5 +1,5 @@
 <h1 align="center">Postgres-Pet-Portal</h1>
-=======
+
 
 Postgres-Pet-Portal has been deployed at the link below, but I am currently working on a database connection issue with Heroku. The application works well locally, so I have uploaded a demonstration video while working on the deployment (Andy-Waine Feb 17 2022).
     <br />      
