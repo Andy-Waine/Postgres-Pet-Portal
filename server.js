@@ -41,7 +41,7 @@ app.use(flash());
 
 //req, res gets
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("login");
 });
 
 app.get("/users/register", checkAuthenticated, (req, res) => {
@@ -69,7 +69,7 @@ app.get("/users/dashboard", checkNotAuthenticated, (req, res) => {
 
 app.get("/users/logout", (req, res) => {
   req.logout();
-  res.render("index", { message: "Logged Out" });
+  res.render("login", { message: "Logged Out" });
 });
 
 app.post("/users/register", async (req, res) => {
